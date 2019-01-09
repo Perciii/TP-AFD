@@ -1,0 +1,2 @@
+- methodes pour generer données
+- noms variables (C0Test etc)
