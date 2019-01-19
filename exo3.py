@@ -7,9 +7,10 @@ from sklearn.datasets import make_classification
 from sklearn.datasets import make_moons
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
 
 '''
-RBF : https://scikit-learn.org/stable/modules/generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF
+SVC : https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC
 Random forest : https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier
 '''
 
@@ -103,30 +104,23 @@ print("LDA score for moons :")
 print("\tApp :", ldaClassifier.score(moonsApp[0], moonsApp[1]))
 print("\tTest :", ldaClassifier.score(moonsTest[0], moonsTest[1]))
 
-# print("the rate of good answer with sklearn on app data")
-# print(classifier.score(appData, classApp))
+svcClassifier = SVC()
+svcClassifier.fit(blobsApp[0], blobsApp[1])
+print("SVC score for blobs :")
+print("\tApp :", svcClassifier.score(blobsApp[0], blobsApp[1]))
+print("\tTest :", svcClassifier.score(blobsTest[0], blobsTest[1]))
 
-# compare our LDA with sklearn for testData
+svcClassifier.fit(classApp[0], classApp[1])
+print("SVC score for class :")
+print("\tApp :", svcClassifier.score(classApp[0], classApp[1]))
+print("\tTest :", svcClassifier.score(classTest[0], classTest[1]))
 
-# classTest = np.concatenate(([0] * len(C0Test), [1] * len(C1Test)))
+svcClassifier.fit(circlesApp[0], circlesApp[1])
+print("SVC score for circles :")
+print("\tApp :", svcClassifier.score(circlesApp[0], circlesApp[1]))
+print("\tTest :", svcClassifier.score(circlesTest[0], circlesTest[1]))
 
-# print("the rate of good answer with sklearn on test data")
-# print(classifier.score(testData, classTest))
-
-# XTwoFeatures = [i[:2] for i in X]
-'''
-lenX = len(X)
-lenY = len(y)
-tenPercentOfX = floor(lenX / 10)
-tenPercentOfY = floor(lenY / 10)
-XApp = X[:tenPercentOfX]
-yApp = y[:tenPercentOfY]
-XTest = X[tenPercentOfX:]
-yTest = y[tenPercentOfY:]
-
-print("XApp :", XApp)
-print("XTest :", len(XTest))
-print("yApp :", len(yApp))
-print("yTest :", len(yTest))
-
-displayData(X, y, "Blobs")'''
+svcClassifier.fit(moonsApp[0], moonsApp[1])
+print("SVC score for moons :")
+print("\tApp :", svcClassifier.score(moonsApp[0], moonsApp[1]))
+print("\tTest :", svcClassifier.score(moonsTest[0], moonsTest[1]))
