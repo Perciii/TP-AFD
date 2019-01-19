@@ -62,65 +62,74 @@ classApp, classTest = createappandtestdata(datasets["class"])
 circlesApp, circlesTest = createappandtestdata(datasets["circles"])
 moonsApp, moonsTest = createappandtestdata(datasets["moons"])
 
-randomForestClassifier = RandomForestClassifier()
-randomForestClassifier.fit(blobsApp[0], blobsApp[1])
-print("Random Forest score for blobs :")
-print("\tApp :", randomForestClassifier.score(blobsApp[0], blobsApp[1]))
-print("\tTest :", randomForestClassifier.score(blobsTest[0], blobsTest[1]))
-
-randomForestClassifier.fit(classApp[0], classApp[1])
-print("Random Forest score for class :")
-print("\tApp :", randomForestClassifier.score(classApp[0], classApp[1]))
-print("\tTest :", randomForestClassifier.score(classTest[0], classTest[1]))
-
-randomForestClassifier.fit(circlesApp[0], circlesApp[1])
-print("Random Forest score for circles :")
-print("\tApp :", randomForestClassifier.score(circlesApp[0], circlesApp[1]))
-print("\tTest :", randomForestClassifier.score(circlesTest[0], circlesTest[1]))
-
-randomForestClassifier.fit(moonsApp[0], moonsApp[1])
-print("Random Forest score for moons :")
-print("\tApp :", randomForestClassifier.score(moonsApp[0], moonsApp[1]))
-print("\tTest :", randomForestClassifier.score(moonsTest[0], moonsTest[1]))
-
+# ==============================================================================
 ldaClassifier = LDA()
-ldaClassifier.fit(blobsApp[0], blobsApp[1])
-print("LDA score for blobs :")
-print("\tApp :", ldaClassifier.score(blobsApp[0], blobsApp[1]))
-print("\tTest :", ldaClassifier.score(blobsTest[0], blobsTest[1]))
-
-ldaClassifier.fit(classApp[0], classApp[1])
-print("LDA score for class :")
-print("\tApp :", ldaClassifier.score(classApp[0], classApp[1]))
-print("\tTest :", ldaClassifier.score(classTest[0], classTest[1]))
-
-ldaClassifier.fit(circlesApp[0], circlesApp[1])
-print("LDA score for circles :")
-print("\tApp :", ldaClassifier.score(circlesApp[0], circlesApp[1]))
-print("\tTest :", ldaClassifier.score(circlesTest[0], circlesTest[1]))
-
-ldaClassifier.fit(moonsApp[0], moonsApp[1])
-print("LDA score for moons :")
-print("\tApp :", ldaClassifier.score(moonsApp[0], moonsApp[1]))
-print("\tTest :", ldaClassifier.score(moonsTest[0], moonsTest[1]))
-
+randomForestClassifier = RandomForestClassifier()
 svcClassifier = SVC()
+# Blobs
+print("Blobs data :")
+ldaClassifier.fit(blobsApp[0], blobsApp[1])
+randomForestClassifier.fit(blobsApp[0], blobsApp[1])
 svcClassifier.fit(blobsApp[0], blobsApp[1])
-print("SVC score for blobs :")
-print("\tApp :", svcClassifier.score(blobsApp[0], blobsApp[1]))
-print("\tTest :", svcClassifier.score(blobsTest[0], blobsTest[1]))
+# App
+print("\tApp data :")
+print("\t\tLDA score :", ldaClassifier.score(blobsApp[0], blobsApp[1]))
+print("\t\tRandom forest score :", randomForestClassifier.score(blobsApp[0], blobsApp[1]))
+print("\t\tSVC score :", svcClassifier.score(blobsApp[0], blobsApp[1]))
 
+# Test
+print("\tTest data :")
+print("\t\tLDA score :", ldaClassifier.score(blobsTest[0], blobsTest[1]))
+print("\t\tRandom forest score :", randomForestClassifier.score(blobsTest[0], blobsTest[1]))
+print("\t\tSVC score :", svcClassifier.score(blobsTest[0], blobsTest[1]))
+
+# Class
+print("Class data :")
+ldaClassifier.fit(classApp[0], classApp[1])
+randomForestClassifier.fit(classApp[0], classApp[1])
 svcClassifier.fit(classApp[0], classApp[1])
-print("SVC score for class :")
-print("\tApp :", svcClassifier.score(classApp[0], classApp[1]))
-print("\tTest :", svcClassifier.score(classTest[0], classTest[1]))
+# App
+print("\tApp data :")
+print("\t\tLDA score :", ldaClassifier.score(classApp[0], classApp[1]))
+print("\t\tRandom forest score :", randomForestClassifier.score(classApp[0], classApp[1]))
+print("\t\tSVC score :", svcClassifier.score(classApp[0], classApp[1]))
 
+# Test
+print("\tTest data :")
+print("\t\tLDA score :", ldaClassifier.score(classTest[0], classTest[1]))
+print("\t\tRandom forest score :", randomForestClassifier.score(classTest[0], classTest[1]))
+print("\t\tSVC score :", svcClassifier.score(classTest[0], classTest[1]))
+
+# Circles
+print("Circles data :")
+ldaClassifier.fit(circlesApp[0], circlesApp[1])
+randomForestClassifier.fit(circlesApp[0], circlesApp[1])
 svcClassifier.fit(circlesApp[0], circlesApp[1])
-print("SVC score for circles :")
-print("\tApp :", svcClassifier.score(circlesApp[0], circlesApp[1]))
-print("\tTest :", svcClassifier.score(circlesTest[0], circlesTest[1]))
+# App
+print("\tApp data :")
+print("\t\tLDA score :", ldaClassifier.score(circlesApp[0], circlesApp[1]))
+print("\t\tRandom forest score :", randomForestClassifier.score(circlesApp[0], circlesApp[1]))
+print("\t\tSVC score :", svcClassifier.score(circlesApp[0], circlesApp[1]))
 
+# Test
+print("\tTest data :")
+print("\t\tLDA score :", ldaClassifier.score(circlesTest[0], circlesTest[1]))
+print("\t\tRandom forest score :", randomForestClassifier.score(circlesTest[0], circlesTest[1]))
+print("\t\tSVC score :", svcClassifier.score(circlesTest[0], circlesTest[1]))
+
+# Moons
+print("Moons data :")
+ldaClassifier.fit(moonsApp[0], moonsApp[1])
+randomForestClassifier.fit(moonsApp[0], moonsApp[1])
 svcClassifier.fit(moonsApp[0], moonsApp[1])
-print("SVC score for moons :")
-print("\tApp :", svcClassifier.score(moonsApp[0], moonsApp[1]))
-print("\tTest :", svcClassifier.score(moonsTest[0], moonsTest[1]))
+# App
+print("\tApp data :")
+print("\t\tLDA score :", ldaClassifier.score(moonsApp[0], moonsApp[1]))
+print("\t\tRandom forest score :", randomForestClassifier.score(moonsApp[0], moonsApp[1]))
+print("\t\tSVC score :", svcClassifier.score(moonsApp[0], moonsApp[1]))
+
+# Test
+print("\tTest data :")
+print("\t\tLDA score :", ldaClassifier.score(moonsTest[0], moonsTest[1]))
+print("\t\tRandom forest score :", randomForestClassifier.score(moonsTest[0], moonsTest[1]))
+print("\t\tSVC score :", svcClassifier.score(moonsTest[0], moonsTest[1]))
