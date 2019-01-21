@@ -1,0 +1,352 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[french]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{graphicx} % Insert graphics
+\usepackage{caption}
+\usepackage{longtable}
+\usepackage{titling}
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{\thepage} % Empty center footer
+\fancyfoot[R]{} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of 
+
+\title{	
+\normalfont \normalsize 
+\textsc{Université Paris Dauphine - Département MIDO} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Rapport de TP - Régression linéaire \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Julienne ISHA - Quentin SAUVAGE} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+\begin{titlingpage}
+\maketitle % Print the title
+\end{titlingpage}
+\newpage
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+\section{Génération de données}
+
+	D'après les consignes, nous avons : \\
+	\[y = \beta\textsubscript{0}+\beta\textsubscript{1}\times x+\epsilon\]
+	Ainsi, on remarque qu'il existe une relation évidente entre $X$, la variable explicative, et $Y$, la variable à expliquer. 
+	\begin{center}
+		\fbox{\includegraphics[width=\textwidth]{Question_I-2.png}}
+	\end{center}
+	De plus, comme le nuage de points pour $X$ et $Y$, ci-dessus, semble suivre une répartition centrée autour d'une droite, on peut envisager, comme modèle, une régression linéaire simple.
+
+\newpage
+\section{Lien entre $X$ et $Y$}
+	\subsection*{2.2 Coefficient de corrélation}
+		\begin{center}
+			\fbox{\includegraphics[width=0.7\textwidth]{correl.png}}
+		\end{center}
+		D'après les calculs, le coefficient de corrélation entre $X$ et $Y$ est quasiment égal à $-1$, on peut donc considérer une relation linéaire négative forte entre $X$ et $Y$.
+
+
+	\subsection*{2.3 Paramètres de la droite de régression}
+		\begin{center}
+			\fbox{\includegraphics[width=0.5\textwidth]{parametres.png}}
+		\end{center}
+		Avec notre code, on obtient comme paramètres : 
+		\[\hat{\beta\textsubscript{0}} \simeq 1\]
+		\[\hat{\beta\textsubscript{1}} \simeq -2\]
+		et donc : 
+		\[\hat{y}=\hat{\beta\textsubscript{0}}+\hat{\beta\textsubscript{1}}\times x \simeq 1 - 2\times x \]
+		On remarque qu'en arrondissant de peu ces paramètres, nous obtenons notre définition de $y$ de la première question, avec $\epsilon$ en moins, ce qui signifie que la somme des résidus est négligeable.
+
+
+	\subsection*{2.4 Représentation de la droite de régression}
+		\begin{center}
+			\fbox{\includegraphics[width=\textwidth]{Question_II-4.png}}
+		\end{center}
+		Notre droite de régression paraît bien alignée avec le nuage de points, on peut en déduire une certaine qualité du modèle prédit.\\
+		$\beta\textsubscript{0}$ détermine l'ordonnée à l'origine c'est-à-dire le moment où la droite de regression coupe l'axe des ordonnées, dans notre cas on remarque qu'elle est positive et que la pente $\beta\textsubscript{1}$ est négative donc la droite est donc décroissante , la valeur de $\beta\textsubscript{1}$ donne le nombre d’unités supplémentaires de $y$ associées à une augmentation d'une unité de $x$.
+
+
+	\subsection*{2.5 Prédiction de $\hat{y}$ pour $x=10$}
+	Par le calcul :
+	\begin{align} 
+	\begin{split}
+	\hat{y}	&= \hat{\beta\textsubscript{0}}+\hat{\beta\textsubscript{1}}\times x\\
+	&\simeq1-2\times10\\
+	\hat{y}&\simeq-19\\
+	\end{split}					
+	\end{align}
+	D'après notre prédiction de droite de régression, avec $x=10$, on a $\hat{y} \simeq -19$.
+
+
+	\subsection*{2.6 Prédiction de $\hat{y}$ pour $x=50$}
+	Par le calcul :
+	\begin{align} 
+	\begin{split}
+	\hat{y}	&= \hat{\beta\textsubscript{0}}+\hat{\beta\textsubscript{1}}\times x\\
+	&\simeq1-2\times50\\
+	\hat{y}&\simeq-99\\
+	\end{split}					
+	\end{align}
+	D'après notre prédiction de droite de régression, avec $x=50$, on a $\hat{y} \simeq -99$. Notre droite de régression est donc décroissante ce qui confirme la valeur du coefficient de corrélation trouvée à la question II - 2.\\
+	
+	Calculs par le code :
+	\begin{center}
+			\fbox{\includegraphics[width=0.7\textwidth]{x_10_50.png}}
+		\end{center}
+
+	\subsection*{2.7 Comparaison des coefficients de notre régression linéaire et de celle de la librairie sklearn}
+		\begin{center}
+			\fbox{\includegraphics[width=0.6\textwidth]{coefs.png}}
+		\end{center}
+		Les coefficients obtenus par notre implémentation de régression linéaire et ceux obtenus par sklearn sont similaires, ce qui nous rassure sur notre implémentation.
+
+\newpage
+\section{Cas d'école}
+
+\subsection{Ajout d'une observation aberrante}
+	Dans notre jeu de donné généré précédemment, on remplace le point ($x\textsubscript{0}, y\textsubscript{0}$) par l'observation aberrante (-100, 0) :
+	\begin{center}
+		\fbox{\includegraphics[width=\textwidth]{Question_III-1.png}}
+	\end{center}
+
+On observe que la droite de régression est attirée vers le point aberrant, ce qui cause le désalignement de celle-ci avec les autres données. En effet, la droite de régression correspond à la minimisation du critère des moindres carrés. Dans ce cas, la droite de régression initiale présente un écart très important avec le point aberrant, elle cherche donc à minimiser tous les écarts, comprenant maintenant le point aberrant, en même temps. Elle se rapproche donc de ce point et s'éloigne des points "normaux".
+\newpage
+\subsection{Variation de la variance de $\epsilon$}
+
+\begin{figure}[!htb]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=0.png}
+  \caption{Var($\epsilon$)$=0$}\label{fig:3-2_var_e_0}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=10.png}
+  \caption{Var($\epsilon$)$=10$}\label{fig:3-2_var_e_10}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=20.png}
+  \caption{Var($\epsilon$)$=20$}\label{fig:3-2_var_e_20}
+\endminipage
+\end{figure}
+\begin{figure}[!htb]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=30.png}
+  \caption{Var($\epsilon$)$=30$}\label{fig:3-2_var_e_30}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=40.png}
+  \caption{Var($\epsilon$)$=40$}\label{fig:3-2_var_e_40}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=50.png}
+  \caption{Var($\epsilon$)$=50$}\label{fig:3-2_var_e_50}
+\endminipage
+\end{figure}
+
+
+\iffalse 
+\begin{figure}[!htb]
+\minipage{0.5\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=0.png}
+  \caption{Var($\epsilon$)$=0$}\label{fig:3-2_var_e_0}
+\endminipage
+\minipage{0.5\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=10.png}
+  \caption{Var($\epsilon$)$=10$}\label{fig:3-2_var_e_10}
+\endminipage
+\end{figure}
+\begin{figure}[!htb]
+\minipage{0.5\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=20.png}
+  \caption{Var($\epsilon$)$=20$}\label{fig:3-2_var_e_20}
+\endminipage\hfill
+\minipage{0.5\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=30.png}
+  \caption{Var($\epsilon$)$=30$}\label{fig:3-2_var_e_30}
+\endminipage
+\end{figure}
+\begin{figure}[!htb]
+\minipage{0.5\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=40.png}
+  \caption{Var($\epsilon$)$=40$}\label{fig:3-2_var_e_40}
+\endminipage\hfill
+\minipage{0.5\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=50.png}
+  \caption{Var($\epsilon$)$=50$}\label{fig:3-2_var_e_50}
+\endminipage
+\end{figure}
+\fi
+
+On remarque graphiquement que lorsque la variance de $\epsilon$ augmente, la somme des résidus au carré augmente également, les points sont plus éloignés de la droite de régression qui les résume.
+
+\newpage
+\subsection{Régression multiple}
+Pour cette régression multiple, nous avons choisi d'utiliser deux variables explicatives ($X\textsubscript{1}$ et $X\textsubscript{2}$) afin d'expliquer une variable $Y$.\\
+Chaque variable suit une loi normale et contient un jeu de 100 données.\\
+Nous obtenons cette représentation graphique des données :
+\begin{center}
+	\fbox{\includegraphics[width=0.6\textwidth]{reg_mult.png}}
+\end{center}
+\begin{center}
+	\fbox{\includegraphics[width=0.6\textwidth]{reg_mult2.png}}
+\end{center}
+
+D'autre part, la matrice $\hat{\beta}$ obtenue est la suivante :
+\begin{center}
+	\fbox{\includegraphics[width=0.7\textwidth]{b_chapeau.png}}
+\end{center}
+Ainsi, on a :
+\begin{align} 
+	\begin{split}
+	\hat{y} &= \hat{\beta\textsubscript{0}} + \hat{\beta\textsubscript{1}}X\textsubscript{1} + \hat{\beta\textsubscript{2}}X\textsubscript{2} + \varepsilon \\
+	&= 0.89047173 + 1.54814225X\textsubscript{1} - 0.15634412X\textsubscript{2} + \varepsilon \\
+	\end{split}					
+	\end{align}
+
+\newpage
+\section{À vous de jouer}
+Pour cette partie, nous avons décidé de prendre un échantillon assez varié des pays du monde (environ la moitié) et de déterminer une éventuelle corrélation entre leur IDH (Indice de Développement Humain) et leur taux de chômage.\\
+Les IDH sont ceux de 2016 tandis que les taux de chômage sont les derniers disponibles pour chaque pays, ils ne se réfèrent donc pas tous à la même année.
+
+\begin{longtable}{|c|c|c|}
+\hline
+\textbf{Pays} & \textbf{IDH} & \textbf{Taux de chômage (en \%)} \\ \hline
+\hline \hline
+Norvège	& 0.949 & 4.00 \\
+Australie	& 0.939 & 5.40 \\
+Allemagne	& 0.926 & 3.60 \\
+Singapour	& 0.925 & 2.20 \\
+Pays-Bas	& 0.924 & 4.40 \\
+Islande	& 0.921 & 2.50 \\
+États-Unis	& 0.920 & 4.10 \\
+Hong Kong	& 0.917 & 3.00 \\
+Suède	& 0.913 & 5.80 \\
+Royaume-Uni	& 0.909 & 4.30 \\
+Corée du Sud	& 0.901 & 3.60 \\
+France	& 0.897 & 9.70 \\
+Belgique	& 0.896 & 6.70 \\
+Autriche	& 0.893 & 9.40 \\
+Italie	& 0.887 & 11.00 \\
+Taïwan	& 0.882 & 3.69 \\
+Grèce	& 0.866 & 20.70 \\
+Estonie	& 0.865 & 5.20 \\
+Qatar	& 0.856 & 0.10 \\
+Lituanie	& 0.848 & 7.70 \\
+Émirats arabes unis	& 0.840 & 3.69 \\
+Lettonie	& 0.830 & 8.50 \\
+Croatie	& 0.827 & 12.10 \\
+Monténégro	& 0.807 & 22.51 \\
+Koweït	& 0.800 & 2.40 \\
+Bélarus (Biélorussie)	& 0.796 & 0.90 \\
+Oman	& 0.796 & 17.50 \\
+Bulgarie	& 0.794 & 6.93 \\
+Uruguay	& 0.794 & 7.76 \\
+Malaisie	& 0.789 & 3.30 \\
+Panama	& 0.788 & 5.60 \\
+Seychelles	& 0.782 & 4.50 \\
+Costa Rica	& 0.776 & 9.40 \\
+Cuba	& 0.775 & 2.00 \\
+Géorgie	& 0.769 & 11.80 \\
+Turquie	& 0.767 & 10.30 \\
+Sri Lanka	& 0.766 & 4.20 \\
+Albanie	& 0.764 & 13.60 \\
+Liban	& 0.763 & 6.80 \\
+Mexique	& 0.762 & 3.40 \\
+Azerbaïdjan	& 0.759 & 5.10 \\
+Brésil	& 0.754 & 12.00 \\
+Macédoine	& 0.748 & 22.10 \\
+Arménie	& 0.743 & 16.50 \\
+Ukraine	& 0.743 & 8.90 \\
+Pérou	& 0.740 & 6.50 \\
+Thaïlande	& 0.740 & 1.10 \\
+Chine	& 0.738 & 3.95 \\
+Mongolie	& 0.735 & 9.10 \\
+Jamaïque	& 0.730 & 12.20 \\
+Tunisie	& 0.725 & 15.30 \\
+République dominicaine	& 0.722 & 5.40 \\
+Belize	& 0.706 & 8.00 \\
+Moldavie	& 0.699 & 3.40 \\
+Botswana	& 0.698 & 17.60 \\
+Gabon	& 0.697 & 18.50 \\
+Indonésie	& 0.691 & 5.50 \\
+Palestine	& 0.684 & 29.20 \\
+Vietnam	& 0.683 & 2.09 \\
+Philippines	& 0.682 & 5.00 \\
+Salvador	& 0.680 & 7.00 \\
+Kirghizistan	& 0.664 & 2.40 \\
+Irak	& 0.649 & 16.00 \\
+Nicaragua	& 0.645 & 5.90 \\
+Namibie	& 0.640 & 34.00 \\
+Honduras	& 0.625 & 7.40 \\
+Bhoutan	& 0.607 & 2.50 \\
+Congo	& 0.592 & 46.10 \\
+Zambie	& 0.579 & 7.53 \\
+Cambodge	& 0.563 & 0.30 \\
+Pakistan	& 0.550 & 5.90 \\
+Syrie	& 0.536 & 14.30 \\
+Angola	& 0.533 & 26.00 \\
+Tanzanie	& 0.531 & 10.30 \\
+Cameroun	& 0.518 & 4.51 \\
+Zimbabwé	& 0.516 & 5.09 \\
+Madagascar	& 0.512 & 2.13 \\
+Comores	& 0.497 & 19.96 \\
+Sénégal	& 0.494 & 12.50 \\
+Haïti	& 0.493 & 13.19 \\
+Soudan	& 0.490 & 13.30 \\
+Togo	& 0.487 & 6.79 \\
+Éthiopie	& 0.448 & 16.80 \\
+République démocratique du Congo	& 0.435 & 11.19 \\
+Libéria	& 0.427 & 4.00 \\
+Érythrée	& 0.420 & 7.27 \\
+Mozambique	& 0.418 & 24.37 \\
+Guinée	& 0.414 & 6.85 \\
+Burkina Faso	& 0.402 & 2.98  \\
+Niger	& 0.353 & 2.63 \\
+\hline
+\end{longtable}
+
+\newpage
+Résultat de la régression linéaire sur ces données :\\
+\begin{center}
+	\fbox{\includegraphics[width=0.9\textwidth]{idhchomage.png}}
+\end{center}
+\begin{center}
+	\fbox{\includegraphics[width=0.9\textwidth]{grapheIdhChomage.png}}
+\end{center}
+
+On observe donc que, malgré une relation linéaire très faible entre ces deux jeux de données mise en avant par un coefficient de corrélation peu significatif, une légère tendance globale se dégage, associant un IDH plus élevé avec un taux de chômage plus faible et inversement.
+
+\end{document}
