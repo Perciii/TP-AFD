@@ -33,14 +33,14 @@ def display_data(x, y, figure=""):
     plt.show()
 
 
-def generate_datasets():
-    generated_datasets = dict()
-    generated_datasets["Blobs"] = make_blobs(n_samples=1000, centers=2, n_features=2)
-    generated_datasets["Class"] = make_classification(n_samples=1000, n_classes=2, n_features=2, n_redundant=0)
-    generated_datasets["Circles"] = make_circles(n_samples=1000, noise=0.1)
-    generated_datasets["Moons"] = make_moons(n_samples=1000, noise=0.1)
-    generated_datasets["Breast cancer"] = load_breast_cancer(True)
-    return generated_datasets
+def generate_data_sets():
+    generated_data_sets = dict()
+    generated_data_sets["Blobs"] = make_blobs(n_samples=1000, centers=2, n_features=2)
+    generated_data_sets["Class"] = make_classification(n_samples=1000, n_classes=2, n_features=2, n_redundant=0)
+    generated_data_sets["Circles"] = make_circles(n_samples=1000, noise=0.1)
+    generated_data_sets["Moons"] = make_moons(n_samples=1000, noise=0.1)
+    generated_data_sets["Breast cancer"] = load_breast_cancer(True)
+    return generated_data_sets
 
 
 def create_app_and_test_data(dataset, percentage=1):
@@ -51,14 +51,14 @@ def create_app_and_test_data(dataset, percentage=1):
     return app_data, test_data
 
 
-datasets = generate_datasets()
+data_sets = generate_data_sets()
 # compare LDA with random forest for blobs appData
-blobsApp, blobsTest = create_app_and_test_data(datasets["Blobs"])
+blobsApp, blobsTest = create_app_and_test_data(data_sets["Blobs"])
 # print("blobsApp data :", blobsApp[0], "\nblobsApp target :", blobsApp[1])
-classApp, classTest = create_app_and_test_data(datasets["Class"])
-circlesApp, circlesTest = create_app_and_test_data(datasets["Circles"])
-moonsApp, moonsTest = create_app_and_test_data(datasets["Moons"])
-breastApp, breastTest = create_app_and_test_data(datasets["Breast cancer"], 10)
+classApp, classTest = create_app_and_test_data(data_sets["Class"])
+circlesApp, circlesTest = create_app_and_test_data(data_sets["Circles"])
+moonsApp, moonsTest = create_app_and_test_data(data_sets["Moons"])
+breastApp, breastTest = create_app_and_test_data(data_sets["Breast cancer"], 10)
 
 
 # display_data(circlesTest[0], circlesTest[1], "Moons")
