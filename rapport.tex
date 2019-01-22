@@ -1,0 +1,244 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[french]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{graphicx} % Insert graphics
+\usepackage{caption}
+\usepackage{longtable}
+\usepackage{titling}
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{\thepage} % Empty center footer
+\fancyfoot[R]{} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of 
+
+\title{	
+\normalfont \normalsize 
+\textsc{Université Paris Dauphine - Département MIDO} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Rapport de TP - Méthodes de classification \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Quentin SAUVAGE - Stanislas TRAN} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+\begin{titlingpage}
+\maketitle % Print the title
+\end{titlingpage}
+\newpage
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+\section{Génération de données}
+	Les données ont été générées dans le main dans la partie initialisation. Une fonction display_data a été implémentée pour afficher les jeux de données.
+	La fenêtre nommée “App data” affiche le jeu de données d’apprentissage et la fenêtre nommée ”Test_data” affiche les données de test.
+
+
+\newpage
+\section{Analyse Discriminante Linéaire}
+	\subsection{Implémentation}
+		Pour cette question la fonction la fonction my_lda(c0, c1) a été implémentée. Elle prend deux jeux de données d’apprentissage en paramètres puis calcule et retourne les coefficients w et b permettant d’appliquer l’Analyse Discriminante Linéaire.  		méthode apply_lda(w, b, x) prend en argument les paramètres w et b d’une analyse discriminante linéaire précédemment calculés (w étant la pente de la droite et b son ordonnée à l’origine) et un point x, puis calcule et retourne la classe de x. 			Enfin, la fonction test_my_lda(c0_app, c1_app, c0_test, c1_test) permet de calculer le taux de bonne classification réalisé par notre implémentation de l’analyse discriminante linéaire.\\
+
+		Les taux de bonne classification sur les données d’apprentissage et de test calculés par notre implémentation de l’analyse discriminante linéaire sont identiques à ceux calculés en utilisant la librairie sklearn, soit 0.95 pour les données 					d’apprentissage et 0.9355 pour les données test.
+
+
+
+	\subsection{Valeur aberrante}
+		Pour cette question, nous avons créé une copie de notre premier jeu d’apprentissage dans laquelle nous avons modifié la première valeur par la valeur aberrante [-10,-10].\\
+		En calculant les paramètres de la LDA à partir de ces nouvelles données  d’apprentissage et en l’appliquant sur ces données, on obtient un taux de bonne classification de 1.0 pour les données d’apprentissage et 0.8335 pour les données de test. 		Ainsi on obtient un taux plus élevé pour les données d’apprentissage mais un taux moins élevé pour les données test. L’ajout de cette valeur aberrante a réduit la précision de notre LDA, on en déduit un certain manque de robustesse de cette 			méthode aux valeurs aberrantes. Cette observation est également valable pour les résultats obtenus en utilisant la librairie sklearn.
+
+
+
+	\subsection{Représentation des données et de la frontière de décision}
+		\begin{center}
+			\fbox{\includegraphics[width=\textwidth]{Question_II-4.png}}
+		\end{center}
+		Notre droite de régression paraît bien alignée avec le nuage de points, on peut en déduire une certaine qualité du modèle prédit.\\
+		$\beta\textsubscript{0}$ détermine l'ordonnée à l'origine c'est-à-dire le moment où la droite de regression coupe l'axe des ordonnées, dans notre cas on remarque qu'elle est positive et que la pente $\beta\textsubscript{1}$ est négative donc la droite est donc décroissante , la valeur de $\beta\textsubscript{1}$ donne le nombre d’unités supplémentaires de $y$ associées à une augmentation d'une unité de $x$.
+
+
+	\subsection*{2.5 Prédiction de $\hat{y}$ pour $x=10$}
+	Par le calcul :
+	\begin{align} 
+	\begin{split}
+	\hat{y}	&= \hat{\beta\textsubscript{0}}+\hat{\beta\textsubscript{1}}\times x\\
+	&\simeq1-2\times10\\
+	\hat{y}&\simeq-19\\
+	\end{split}					
+	\end{align}
+	D'après notre prédiction de droite de régression, avec $x=10$, on a $\hat{y} \simeq -19$.
+
+
+	\subsection*{2.6 Prédiction de $\hat{y}$ pour $x=50$}
+	Par le calcul :
+	\begin{align} 
+	\begin{split}
+	\hat{y}	&= \hat{\beta\textsubscript{0}}+\hat{\beta\textsubscript{1}}\times x\\
+	&\simeq1-2\times50\\
+	\hat{y}&\simeq-99\\
+	\end{split}					
+	\end{align}
+	D'après notre prédiction de droite de régression, avec $x=50$, on a $\hat{y} \simeq -99$. Notre droite de régression est donc décroissante ce qui confirme la valeur du coefficient de corrélation trouvée à la question II - 2.\\
+	
+	Calculs par le code :
+	\begin{center}
+			\fbox{\includegraphics[width=0.7\textwidth]{x_10_50.png}}
+		\end{center}
+
+	\subsection*{2.7 Comparaison des coefficients de notre régression linéaire et de celle de la librairie sklearn}
+		\begin{center}
+			\fbox{\includegraphics[width=0.6\textwidth]{coefs.png}}
+		\end{center}
+		Les coefficients obtenus par notre implémentation de régression linéaire et ceux obtenus par sklearn sont similaires, ce qui nous rassure sur notre implémentation.
+
+\newpage
+\section{Cas d'école}
+
+\subsection{Ajout d'une observation aberrante}
+	Dans notre jeu de donné généré précédemment, on remplace le point ($x\textsubscript{0}, y\textsubscript{0}$) par l'observation aberrante (-100, 0) :
+	\begin{center}
+		\fbox{\includegraphics[width=\textwidth]{Question_III-1.png}}
+	\end{center}
+
+On observe que la droite de régression est attirée vers le point aberrant, ce qui cause le désalignement de celle-ci avec les autres données. En effet, la droite de régression correspond à la minimisation du critère des moindres carrés. Dans ce cas, la droite de régression initiale présente un écart très important avec le point aberrant, elle cherche donc à minimiser tous les écarts, comprenant maintenant le point aberrant, en même temps. Elle se rapproche donc de ce point et s'éloigne des points "normaux".
+\newpage
+\subsection{Variation de la variance de $\epsilon$}
+
+\begin{figure}[!htb]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=0.png}
+  \caption{Var($\epsilon$)$=0$}\label{fig:3-2_var_e_0}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=10.png}
+  \caption{Var($\epsilon$)$=10$}\label{fig:3-2_var_e_10}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=20.png}
+  \caption{Var($\epsilon$)$=20$}\label{fig:3-2_var_e_20}
+\endminipage
+\end{figure}
+\begin{figure}[!htb]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=30.png}
+  \caption{Var($\epsilon$)$=30$}\label{fig:3-2_var_e_30}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=40.png}
+  \caption{Var($\epsilon$)$=40$}\label{fig:3-2_var_e_40}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=50.png}
+  \caption{Var($\epsilon$)$=50$}\label{fig:3-2_var_e_50}
+\endminipage
+\end{figure}
+
+
+\iffalse 
+\begin{figure}[!htb]
+\minipage{0.5\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=0.png}
+  \caption{Var($\epsilon$)$=0$}\label{fig:3-2_var_e_0}
+\endminipage
+\minipage{0.5\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=10.png}
+  \caption{Var($\epsilon$)$=10$}\label{fig:3-2_var_e_10}
+\endminipage
+\end{figure}
+\begin{figure}[!htb]
+\minipage{0.5\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=20.png}
+  \caption{Var($\epsilon$)$=20$}\label{fig:3-2_var_e_20}
+\endminipage\hfill
+\minipage{0.5\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=30.png}
+  \caption{Var($\epsilon$)$=30$}\label{fig:3-2_var_e_30}
+\endminipage
+\end{figure}
+\begin{figure}[!htb]
+\minipage{0.5\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=40.png}
+  \caption{Var($\epsilon$)$=40$}\label{fig:3-2_var_e_40}
+\endminipage\hfill
+\minipage{0.5\textwidth}
+  \includegraphics[width=\linewidth]{Question_III-2_avec_variance_de_e=50.png}
+  \caption{Var($\epsilon$)$=50$}\label{fig:3-2_var_e_50}
+\endminipage
+\end{figure}
+\fi
+
+On remarque graphiquement que lorsque la variance de $\epsilon$ augmente, la somme des résidus au carré augmente également, les points sont plus éloignés de la droite de régression qui les résume.
+
+\newpage
+\subsection{Régression multiple}
+Pour cette régression multiple, nous avons choisi d'utiliser deux variables explicatives ($X\textsubscript{1}$ et $X\textsubscript{2}$) afin d'expliquer une variable $Y$.\\
+Chaque variable suit une loi normale et contient un jeu de 100 données.\\
+Nous obtenons cette représentation graphique des données :
+\begin{center}
+	\fbox{\includegraphics[width=0.6\textwidth]{reg_mult.png}}
+\end{center}
+\begin{center}
+	\fbox{\includegraphics[width=0.6\textwidth]{reg_mult2.png}}
+\end{center}
+
+D'autre part, la matrice $\hat{\beta}$ obtenue est la suivante :
+\begin{center}
+	\fbox{\includegraphics[width=0.7\textwidth]{b_chapeau.png}}
+\end{center}
+Ainsi, on a :
+\begin{align} 
+	\begin{split}
+	\hat{y} &= \hat{\beta\textsubscript{0}} + \hat{\beta\textsubscript{1}}X\textsubscript{1} + \hat{\beta\textsubscript{2}}X\textsubscript{2} + \varepsilon \\
+	&= 0.89047173 + 1.54814225X\textsubscript{1} - 0.15634412X\textsubscript{2} + \varepsilon \\
+	\end{split}					
+	\end{align}
+
+\newpage
+\section{À vous de jouer}
+Pour cette partie, nous avons décidé de prendre un échantillon assez varié des pays du monde (environ la moitié) et de déterminer une éventuelle corrélation entre leur IDH (Indice de Développement Humain) et leur taux de chômage.\\
+Les IDH sont ceux de 2016 tandis que les taux de chômage sont les derniers disponibles pour chaque pays, ils ne se réfèrent donc pas tous à la même année.
+
+\newpage
+Résultat de la régression linéaire sur ces données :\\
+\begin{center}
+	\fbox{\includegraphics[width=0.9\textwidth]{idhchomage.png}}
+\end{center}
+\begin{center}
+	\fbox{\includegraphics[width=0.9\textwidth]{grapheIdhChomage.png}}
+\end{center}
+
+On observe donc que, malgré une relation linéaire très faible entre ces deux jeux de données mise en avant par un coefficient de corrélation peu significatif, une légère tendance globale se dégage, associant un IDH plus élevé avec un taux de chômage plus faible et inversement.
+
+\end{document}
