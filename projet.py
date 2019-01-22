@@ -38,7 +38,7 @@ def display_data(c0, c1, figure=""):
     x1, y1 = zip(*c1)
     plt.scatter(x1, y1, c='blue')
 
-    plt.title('Nuage de points')
+    plt.title(figure)
 
     plt.show()
 
@@ -80,7 +80,7 @@ def my_lda(c0, c1, lamb=None):
     return w, b
 
 
-# apply a LDA from w and b params and return the class of x
+# applies a LDA from w and b parameters and returns the class of x
 def apply_lda(w, b, x):
     x_t = np.transpose(x)
     decision = np.add(np.dot(x_t, w), b)
@@ -91,7 +91,7 @@ def apply_lda(w, b, x):
         return 1
 
 
-# return the accuracy of good prediction (optional lamb for question 5)
+# returns the accuracy of good prediction (optional lamb for question 5)
 def test_my_lda(c0_app, c1_app, c0_test, c1_test, lamb=None):
     w, b = my_lda(c0_app, c1_app, lamb)
     good_prediction = 0
@@ -105,7 +105,7 @@ def test_my_lda(c0_app, c1_app, c0_test, c1_test, lamb=None):
     return good_prediction / (len(c0_test) + len(c1_test))
 
 
-# this function test myLDA with various lambda and return a an array of good success rate and an array of lambda
+# this function test my_lda with various lambdas and returns an array of good classification rate and an array of lambdas
 def test_my_lda_lamb(c0_app, c1_app, c0_test, c1_test):
     result = []
     lambs = []
@@ -116,7 +116,7 @@ def test_my_lda_lamb(c0_app, c1_app, c0_test, c1_test):
     return lambs, result
 
 
-# for question 4 test myLda with different variance matrix
+# for question 4 test my_lda with different variance matrices
 def test_my_lda_with_varying_cov():
     result = []
     variances = []
@@ -138,7 +138,7 @@ def test_my_lda_with_varying_cov():
     return result, variances
 
 
-# take two data list of each class
+# takes two data list of each class
 def cross_validation(c0_app, c1_app):
     lambs = np.arange(0, 1.1, 0.1)
 
@@ -179,14 +179,6 @@ def main():
     c1_app = data["app"][1]
     c0_test = data["test"][0]
     c1_test = data["test"][1]
-    # mu0 = np.array([0, 0])
-    # mu1 = np.array([3, 2])
-    # sigma = np.array([[1, 1 / 2], [1 / 2, 1]])
-    # np.random.seed(1)
-    # c0_app = np.random.multivariate_normal(mu0, sigma, 10)
-    # c1_app = np.random.multivariate_normal(mu1, sigma, 10)
-    # c0_test = np.random.multivariate_normal(mu0, sigma, 1000)
-    # c1_test = np.random.multivariate_normal(mu1, sigma, 1000)
 
     app_data = np.concatenate((c0_app, c1_app))
     test_data = np.concatenate((c0_test, c1_test))
@@ -198,9 +190,7 @@ def main():
     display_data(c0_test, c1_test, "Test data")
 
     # EXERCICE 2:
-
     # Question 1:
-
     # print the good classification rate for apprenticeship data
     print("The rate of good classification by my LDA on apprenticeship data is :")
     print(test_my_lda(c0_app, c1_app, c0_app, c1_app))
@@ -226,9 +216,7 @@ def main():
     print(classifier.score(test_data, class_test))
 
     # Question 2:
-
     # test MyLDA with a new c0_app (replace first value by [-10,-10])
-
     c0_app_bis = np.copy(c0_app)
     c0_app_bis[0] = np.array([-10, -10])
 
@@ -240,7 +228,6 @@ def main():
     print(test_my_lda(c0_app_bis, c1_app, c0_test, c1_test))
 
     # test sklearn with a new c0_app
-
     classifier_bis = LDA()
     classifier_bis.fit(app_data_bis, class_app)
     print("The rate of good classification of data App (c0_app modified) by sklearn:")
@@ -254,14 +241,13 @@ def main():
     # computed obvious point to draw boundary of decision on app data and test data graphs
     easy_points_x = np.transpose([0, -b / w[1]])
     easy_points_y = np.transpose([-b / w[0], 0])
-    plt.figure("app data")
+    plt.figure("App data")
     plt.plot(easy_points_x, easy_points_y, 'y-')
-    plt.figure("test data")
+    plt.figure("Test data")
     plt.plot(easy_points_x, easy_points_y, 'y-')
     plt.show()
 
     # Question 4:
-
     # print(test_my_lda_with_varying_cov())
     plt.figure("good classification by variance")
     plt.title("good classification by variance")
@@ -271,7 +257,6 @@ def main():
     plt.show()
 
     # Question 5:
-
     # test my generalized LDA
     plt.figure("LDA with lambda app")
     plt.title("LDA with lambda app")
