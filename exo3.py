@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from math import floor
 
 import matplotlib.pyplot as plt
