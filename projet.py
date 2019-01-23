@@ -245,7 +245,17 @@ def main():
     plt.plot(easy_points_x, easy_points_y, 'y-')
     plt.figure("Test data")
     plt.plot(easy_points_x, easy_points_y, 'y-')
+    
+    w_bis,b_bis=my_lda(c0_app_bis,c1_app)
+    easy_points_x2 = np.transpose([0, -b_bis / w_bis[1]])
+    easy_points_y2 = np.transpose([-b_bis / w_bis[0], 0])
+    plt.figure("App data")
+    plt.plot(easy_points_x2, easy_points_y2, 'g-')
+    plt.figure("Test data")
+    plt.plot(easy_points_x2, easy_points_y2, 'g-')
+    
     plt.show()
+
 
     # Question 4:
     # print(test_my_lda_with_varying_cov())
